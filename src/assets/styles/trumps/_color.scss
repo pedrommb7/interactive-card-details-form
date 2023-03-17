@@ -1,0 +1,15 @@
+@use "../settings/colors" as *;
+
+.color {
+  &-primary {
+    &--orange {
+      color: $color-primary-orange;
+    }
+  }
+
+  &-neutral {
+    &--white {
+      color: $color-neutral-white;
+    }
+  }
+}

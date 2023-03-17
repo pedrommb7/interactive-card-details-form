@@ -1,0 +1,12 @@
+@use "../common" as *;
+
+html {
+  font-size: 100%;
+}
+
+body {
+  font-family: $font-family-overpass;
+  font-weight: $font-weight-regular;
+  background-color: $color-neutral-verydarkblue;
+  margin: 0;
+}
