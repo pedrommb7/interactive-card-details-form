@@ -1,2 +1,35 @@
+@use "assets/styles/common" as *;
+@use "assets/styles/main.scss" as *;
+
 .App {
+  height: 100vh;
+
+  .addcard {
+    &__banner {
+      background-image: url("./assets/images/bg-main-mobile.png");
+    }
+
+    &__form {
+      &__expirationdate {
+        input {
+          width: 50px;
+        }
+      }
+
+      &__cvv {
+        input {
+          width: 90px;
+        }
+      }
+      label {
+        letter-spacing: 1px;
+      }
+
+      button {
+        background-color: $color-neutral-verydarkviolet;
+        color: $color-neutral-white;
+        border: none;
+      }
+    }
+  }
 }
