@@ -7,12 +7,24 @@
   .addcard {
     &__banner {
       background-image: url("./assets/images/bg-main-mobile.png");
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 28%;
     }
 
     &__form {
+      input {
+        height: 45px;
+        border: $border-01 solid $color-neutral-lightgrayishviolet;
+
+        &::placeholder {
+          color: $color-neutral-lightgrayishviolet;
+        }
+      }
+
       &__expirationdate {
         input {
-          width: 50px;
+          width: 76px;
         }
       }
 
@@ -26,9 +38,11 @@
       }
 
       button {
+        width: 100%;
         background-color: $color-neutral-verydarkviolet;
         color: $color-neutral-white;
         border: none;
+        font-size: $font-size-18;
       }
     }
   }

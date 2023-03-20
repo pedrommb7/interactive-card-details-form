@@ -4,4 +4,5 @@ export interface InputProps {
     className?: string;
     min?: number;
     max?: number;
+    onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
