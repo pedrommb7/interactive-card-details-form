@@ -22,6 +22,10 @@
         }
       }
 
+      &__hint-text {
+        color: $color-primary-red;
+      }
+
       &__expirationdate {
         input {
           width: 76px;
