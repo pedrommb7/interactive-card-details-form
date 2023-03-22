@@ -7,32 +7,96 @@ import "../../../assets/styles/settings/_colors.scss";
 const Form: FC<FormProps> = ({ hintText }) => {
   const [textInputValue, setTextInputValue] = useState("");
   const [numberInputValue, setNumberInputValue] = useState("");
-  const [showError, setShowError] = useState(false);
+  const [nameError, setNameError] = useState("");
+  const [numberError, setNumberError] = useState("");
+  const [monthError, setMonthError] = useState("");
+  const [yearError, setYearError] = useState("");
+  const [cvcError, setCvcError] = useState("");
 
   const handleTextInputChange = (event: {
     target: { value: any; style: any };
   }) => {
     const value = event.target.value;
-    const regex = /\d/; //any one-digit number (0-9) in a string
-    const isNumber = regex.test(value);
+    const regex = /^[a-zA-Z\s]*$/; //only letters and spaces
+    const isLetterOnly = regex.test(value);
     setTextInputValue(value);
-    event.target.style.borderColor = isNumber ? "red" : "purple";
-    setShowError(!isNumber);
+    event.target.style.borderColor = isLetterOnly ? "purple" : "red";
+    setNameError(
+      !value
+        ? (hintText = "Can't be blank")
+        : isLetterOnly
+        ? ""
+        : (hintText = "Wrong format, letters only")
+    );
   };
 
   const handleNumberInputChange = (event: {
-    target: { value: any; style: any };
+    target: {
+      name: string;
+      value: any;
+      style: any;
+    };
   }) => {
     const value = event.target.value;
-    const regex = /\d/;
-    const isNumber = regex.test(value);
+    const regex = /^\d+$/; //only numbers
+    const isNumberOnly = regex.test(value);
     setNumberInputValue(value);
-    event.target.style.borderColor = isNumber ? "purple" : "red";
-    setShowError(!isNumber);
+    event.target.style.borderColor = isNumberOnly ? "purple" : "red";
+
+    setNumberError(
+      !value
+        ? "Can't be blank"
+        : isNumberOnly
+        ? ""
+        : "Wrong format, numbers only"
+    );
+
+    //const name = event.target.name;
+
+    /* switch (name) {
+      case "number":
+        setNumberError(
+          !value
+            ? (hintText = "Can't be blank")
+            : isNumberOnly
+            ? ""
+            : (hintText = "Wrong format, numbers only")
+        );
+        break;
+      case "month":
+        setMonthError(
+          !value
+            ? (hintText = "Can't be blank")
+            : isNumberOnly
+            ? ""
+            : (hintText = "Wrong format, numbers only")
+        );
+        break;
+      case "year":
+        setYearError(
+          !value
+            ? (hintText = "Can't be blank")
+            : isNumberOnly
+            ? ""
+            : (hintText = "Wrong format, numbers only")
+        );
+        break;
+      case "cvc":
+        setCvcError(
+          !value
+            ? (hintText = "Can't be blank")
+            : isNumberOnly
+            ? ""
+            : (hintText = "Wrong format, numbers only")
+        );
+        break;
+      default:
+        break;
+    } */
   };
 
   return (
-    <form className="addcard__form px--24">
+    <form className="addcard__form px--24 mt--20">
       <div className="flex flex--column mb--20">
         <label htmlFor="name" className="mb--8">
           CARDHOLDER NAME
@@ -42,9 +106,9 @@ const Form: FC<FormProps> = ({ hintText }) => {
           placeholder={"e.g. Jane Appleseed"}
           onChange={handleTextInputChange}
         />
-        {showError && (
+        {nameError && (
           <span className="addcard__form__hint-text mt--12 mb--4">
-            {(hintText = "Can't be blank")}
+            {nameError}
           </span>
         )}
       </div>
@@ -58,6 +122,11 @@ const Form: FC<FormProps> = ({ hintText }) => {
           placeholder={"e.g. 1234 5678 9123 0000"}
           onChange={handleNumberInputChange}
         />
+        {numberError && (
+          <span className="addcard__form__hint-text mt--12 mb--4">
+            {numberError}
+          </span>
+        )}
       </div>
 
       <section className="flex flex--row mb--28">
@@ -66,20 +135,35 @@ const Form: FC<FormProps> = ({ hintText }) => {
             EXP. DATE (MM/YY)
           </label>
           <div className="flex flex--row flex__justify--space-between">
-            <Input
-              type={"number"}
-              placeholder={"MM"}
-              min={1}
-              max={12}
-              onChange={handleNumberInputChange}
-            />
-            <Input
-              type={"number"}
-              placeholder={"YY"}
-              min={0}
-              max={99}
-              onChange={handleNumberInputChange}
-            />
+            <div className="flex flex--column">
+              <Input
+                type={"number"}
+                placeholder={"MM"}
+                min={1}
+                max={12}
+                onChange={handleNumberInputChange}
+              />
+              {monthError && (
+                <span className="addcard__form__hint-text mt--12 mb--4">
+                  {monthError}
+                </span>
+              )}
+            </div>
+
+            <div className="flex flex--column">
+              <Input
+                type={"number"}
+                placeholder={"YY"}
+                min={0}
+                max={99}
+                onChange={handleNumberInputChange}
+              />
+              {yearError && (
+                <span className="addcard__form__hint-text mt--12 mb--4">
+                  {yearError}
+                </span>
+              )}
+            </div>
           </div>
         </div>
         <div className="addcard__form__cvv flex flex--column">
@@ -94,6 +178,11 @@ const Form: FC<FormProps> = ({ hintText }) => {
             max={999}
             onChange={handleNumberInputChange}
           />
+          {cvcError && (
+            <span className="addcard__form__hint-text mt--12 mb--4">
+              {cvcError}
+            </span>
+          )}
         </div>
       </section>
 
