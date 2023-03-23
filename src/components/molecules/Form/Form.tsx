@@ -97,7 +97,7 @@ const Form = () => {
   };
 
   return (
-    <form className="addcard__form px--24 mt--20">
+    <form className="addcard__form px--24">
       <div className="flex flex--column mb--20">
         <label htmlFor="name" className="mb--8">
           CARDHOLDER NAME

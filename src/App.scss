@@ -6,13 +6,33 @@
 
   .addcard {
     &__banner {
+      position: relative;
       background-image: url("./assets/images/bg-main-mobile.png");
       background-repeat: no-repeat;
       background-size: cover;
       height: 28%;
+
+      img {
+        height: 70%;
+        width: 70%;
+      }
+
+      img:first-child {
+        position: inherit;
+        top: 15%;
+        right: 5%;
+      }
+
+      img:last-child {
+        position: absolute;
+        top: 54%;
+        left: 5%;
+      }
     }
 
     &__form {
+      margin-top: 96px;
+
       input {
         height: 45px;
         border: $border-01 solid $color-neutral-lightgrayishviolet;
