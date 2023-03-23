@@ -1,16 +1,12 @@
 import React, { useState, FC } from "react";
 import Input from "../../atoms/Input/Input";
 import Button from "../../atoms/Button/Button";
-import { FormProps } from "./types";
 import "../../../assets/styles/settings/_colors.scss";
 
-const Form: FC<FormProps> = ({ hintText }) => {
-  const [textInputValue, setTextInputValue] = useState("");
-  const [numberInputValue, setNumberInputValue] = useState("");
+const Form = () => {
   const [nameError, setNameError] = useState("");
   const [numberError, setNumberError] = useState("");
-  const [monthError, setMonthError] = useState("");
-  const [yearError, setYearError] = useState("");
+  const [dateError, setDateError] = useState("");
   const [cvcError, setCvcError] = useState("");
 
   const handleTextInputChange = (event: {
@@ -18,16 +14,18 @@ const Form: FC<FormProps> = ({ hintText }) => {
   }) => {
     const value = event.target.value;
     const regex = /^[a-zA-Z\s]*$/; //only letters and spaces
-    const isLetterOnly = regex.test(value);
-    setTextInputValue(value);
-    event.target.style.borderColor = isLetterOnly ? "purple" : "red";
-    setNameError(
-      !value
-        ? (hintText = "Can't be blank")
-        : isLetterOnly
-        ? ""
-        : (hintText = "Wrong format, letters only")
-    );
+    const isValid = regex.test(value);
+
+    if (!value) {
+      setNameError("Can't be blank");
+      event.target.style.borderColor = "red";
+    } else if (!isValid) {
+      setNameError("Wrong format, letters only");
+      event.target.style.borderColor = "red";
+    } else {
+      setNameError("");
+      event.target.style.borderColor = "purple";
+    }
   };
 
   const handleNumberInputChange = (event: {
@@ -38,61 +36,57 @@ const Form: FC<FormProps> = ({ hintText }) => {
     };
   }) => {
     const value = event.target.value;
-    const regex = /^\d+$/; //only numbers
-    const isNumberOnly = regex.test(value);
-    setNumberInputValue(value);
-    event.target.style.borderColor = isNumberOnly ? "purple" : "red";
+    const regex = /^[\d\s]+$/; //only numbers
+    const isValid = regex.test(value);
 
-    setNumberError(
-      !value
-        ? "Can't be blank"
-        : isNumberOnly
-        ? ""
-        : "Wrong format, numbers only"
-    );
+    if (value.trim() === "") {
+      setNumberError("Can't be blank");
+      event.target.style.borderColor = "red";
+    } else if (!isValid) {
+      setNumberError("Wrong format, numbers only");
+      event.target.style.borderColor = "red";
+    } else {
+      setNumberError("");
+      event.target.style.borderColor = "purple";
+    }
+  };
 
-    //const name = event.target.name;
+  const handleDateInputChange = (event: {
+    target: { value: any; style: any };
+  }) => {
+    const value = event.target.value;
+    const regex = /^\d{2}$/; // 2-digit number
+    const isValid = regex.test(value);
 
-    /* switch (name) {
-      case "number":
-        setNumberError(
-          !value
-            ? (hintText = "Can't be blank")
-            : isNumberOnly
-            ? ""
-            : (hintText = "Wrong format, numbers only")
-        );
-        break;
-      case "month":
-        setMonthError(
-          !value
-            ? (hintText = "Can't be blank")
-            : isNumberOnly
-            ? ""
-            : (hintText = "Wrong format, numbers only")
-        );
-        break;
-      case "year":
-        setYearError(
-          !value
-            ? (hintText = "Can't be blank")
-            : isNumberOnly
-            ? ""
-            : (hintText = "Wrong format, numbers only")
-        );
-        break;
-      case "cvc":
-        setCvcError(
-          !value
-            ? (hintText = "Can't be blank")
-            : isNumberOnly
-            ? ""
-            : (hintText = "Wrong format, numbers only")
-        );
-        break;
-      default:
-        break;
-    } */
+    if (!value) {
+      setDateError("Can't be blank");
+      event.target.style.borderColor = "red";
+    } else if (!isValid) {
+      setDateError("Wrong format, 2-digit number");
+      event.target.style.borderColor = "red";
+    } else {
+      setDateError("");
+      event.target.style.borderColor = "purple";
+    }
+  };
+
+  const handleCvcInputChange = (event: {
+    target: { value: any; style: any };
+  }) => {
+    const value = event.target.value;
+    const regex = /^\d{3}$/; // 3-digit number
+    const isValid = regex.test(value);
+
+    if (!value) {
+      setCvcError("Can't be blank");
+      event.target.style.borderColor = "red";
+    } else if (!isValid) {
+      setCvcError("Wrong format, 3-digit number");
+      event.target.style.borderColor = "red";
+    } else {
+      setCvcError("");
+      event.target.style.borderColor = "purple";
+    }
   };
 
   return (
@@ -118,7 +112,7 @@ const Form: FC<FormProps> = ({ hintText }) => {
           CARD NUMBER
         </label>
         <Input
-          type={"number"}
+          type={"text"}
           placeholder={"e.g. 1234 5678 9123 0000"}
           onChange={handleNumberInputChange}
         />
@@ -141,11 +135,11 @@ const Form: FC<FormProps> = ({ hintText }) => {
                 placeholder={"MM"}
                 min={1}
                 max={12}
-                onChange={handleNumberInputChange}
+                onChange={handleDateInputChange}
               />
-              {monthError && (
+              {dateError && (
                 <span className="addcard__form__hint-text mt--12 mb--4">
-                  {monthError}
+                  {dateError}
                 </span>
               )}
             </div>
@@ -156,11 +150,11 @@ const Form: FC<FormProps> = ({ hintText }) => {
                 placeholder={"YY"}
                 min={0}
                 max={99}
-                onChange={handleNumberInputChange}
+                onChange={handleDateInputChange}
               />
-              {yearError && (
+              {dateError && (
                 <span className="addcard__form__hint-text mt--12 mb--4">
-                  {yearError}
+                  {dateError}
                 </span>
               )}
             </div>
@@ -176,7 +170,7 @@ const Form: FC<FormProps> = ({ hintText }) => {
             placeholder={"e.g. 123"}
             min={100}
             max={999}
-            onChange={handleNumberInputChange}
+            onChange={handleCvcInputChange}
           />
           {cvcError && (
             <span className="addcard__form__hint-text mt--12 mb--4">
