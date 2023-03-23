@@ -4,89 +4,96 @@ import Button from "../../atoms/Button/Button";
 import "../../../assets/styles/settings/_colors.scss";
 
 const Form = () => {
+  const validateInput = (
+    value: any,
+    regex: RegExp,
+    setError: {
+      (value: React.SetStateAction<string>): void;
+      (value: React.SetStateAction<string>): void;
+      (value: React.SetStateAction<string>): void;
+      (value: React.SetStateAction<string>): void;
+      (arg0: string): void;
+    },
+    errorMessage: string
+  ) => {
+    const isValid = regex.test(value);
+
+    if (!value) {
+      setError("Can't be blank");
+      return "red";
+    } else if (!isValid) {
+      setError(errorMessage);
+      return "red";
+    } else {
+      setError("");
+      return "purple";
+    }
+  };
+
   const [nameError, setNameError] = useState("");
   const [numberError, setNumberError] = useState("");
   const [dateError, setDateError] = useState("");
   const [cvcError, setCvcError] = useState("");
 
   const handleTextInputChange = (event: {
-    target: { value: any; style: any };
+    target: { value: any; style: { borderColor: string } };
   }) => {
     const value = event.target.value;
     const regex = /^[a-zA-Z\s]*$/; //only letters and spaces
-    const isValid = regex.test(value);
 
-    if (!value) {
-      setNameError("Can't be blank");
-      event.target.style.borderColor = "red";
-    } else if (!isValid) {
-      setNameError("Wrong format, letters only");
-      event.target.style.borderColor = "red";
-    } else {
-      setNameError("");
-      event.target.style.borderColor = "purple";
-    }
+    const borderColor = validateInput(
+      value,
+      regex,
+      setNameError,
+      "Wrong format, letters only"
+    );
+
+    event.target.style.borderColor = borderColor;
   };
 
   const handleNumberInputChange = (event: {
-    target: {
-      name: string;
-      value: any;
-      style: any;
-    };
+    target: { value: any; style: { borderColor: string } };
   }) => {
     const value = event.target.value;
     const regex = /^[\d\s]+$/; //only numbers
-    const isValid = regex.test(value);
+    const borderColor = validateInput(
+      value,
+      regex,
+      setNumberError,
+      "Wrong format, numbers only"
+    );
 
-    if (value.trim() === "") {
-      setNumberError("Can't be blank");
-      event.target.style.borderColor = "red";
-    } else if (!isValid) {
-      setNumberError("Wrong format, numbers only");
-      event.target.style.borderColor = "red";
-    } else {
-      setNumberError("");
-      event.target.style.borderColor = "purple";
-    }
+    event.target.style.borderColor = borderColor;
   };
 
   const handleDateInputChange = (event: {
-    target: { value: any; style: any };
+    target: { value: any; style: { borderColor: string } };
   }) => {
     const value = event.target.value;
     const regex = /^\d{2}$/; // 2-digit number
-    const isValid = regex.test(value);
+    const borderColor = validateInput(
+      value,
+      regex,
+      setDateError,
+      "Wrong format, 2-digit number"
+    );
 
-    if (!value) {
-      setDateError("Can't be blank");
-      event.target.style.borderColor = "red";
-    } else if (!isValid) {
-      setDateError("Wrong format, 2-digit number");
-      event.target.style.borderColor = "red";
-    } else {
-      setDateError("");
-      event.target.style.borderColor = "purple";
-    }
+    event.target.style.borderColor = borderColor;
   };
 
   const handleCvcInputChange = (event: {
-    target: { value: any; style: any };
+    target: { value: any; style: { borderColor: string } };
   }) => {
     const value = event.target.value;
     const regex = /^\d{3}$/; // 3-digit number
-    const isValid = regex.test(value);
+    const borderColor = validateInput(
+      value,
+      regex,
+      setCvcError,
+      "Wrong format, 3-digit number"
+    );
 
-    if (!value) {
-      setCvcError("Can't be blank");
-      event.target.style.borderColor = "red";
-    } else if (!isValid) {
-      setCvcError("Wrong format, 3-digit number");
-      event.target.style.borderColor = "red";
-    } else {
-      setCvcError("");
-      event.target.style.borderColor = "purple";
-    }
+    event.target.style.borderColor = borderColor;
   };
 
   return (
