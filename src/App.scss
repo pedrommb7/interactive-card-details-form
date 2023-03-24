@@ -14,19 +14,63 @@
 
       img {
         height: 70%;
-        width: 70%;
+        width: 74%;
       }
 
-      img:first-child {
-        position: inherit;
-        top: 15%;
-        right: 5%;
+      svg {
+        transform: scale(0.7);
       }
 
-      img:last-child {
-        position: absolute;
-        top: 54%;
-        left: 5%;
+      &__card {
+        &__back {
+          position: inherit;
+          top: 15%;
+          left: 21%;
+
+          &__cvc {
+            position: absolute;
+            bottom: 48%;
+            right: 15%;
+            color: $color-neutral-white;
+            font-size: $font-size-11;
+            letter-spacing: 1px;
+          }
+        }
+
+        &__front {
+          position: absolute;
+          top: 54%;
+          left: 5%;
+
+          &__number {
+            position: absolute;
+            top: 87%;
+            left: 9%;
+
+            span {
+              letter-spacing: 2px;
+              color: $color-neutral-white;
+              font-size: $font-size-18;
+            }
+          }
+
+          &__namedate {
+            position: absolute;
+            top: 95%;
+            left: 9%;
+
+            p,
+            span {
+              color: $color-neutral-white;
+              font-size: $font-size-11;
+              letter-spacing: 2px;
+            }
+
+            p {
+              margin-right: 5rem;
+            }
+          }
+        }
       }
     }
 
@@ -54,12 +98,14 @@
 
       &__cvv {
         input {
-          width: 165px;
+          width: 100%;
+          padding: 0 7rem;
         }
       }
 
       label {
         letter-spacing: 1px;
+        font-size: $font-size-14;
       }
 
       button {

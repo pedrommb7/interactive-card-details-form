@@ -16,7 +16,7 @@ const Input: FC<InputProps> = ({
       min={min}
       max={max}
       onChange={onChange}
-      className={`border-radius--8 pl--16 ${className}`}
+      className={`${className}`}
     />
   );
 };

@@ -103,6 +103,7 @@ const Form = () => {
           CARDHOLDER NAME
         </label>
         <Input
+          className="border-radius--8 pl--16"
           type={"text"}
           placeholder={"e.g. Jane Appleseed"}
           onChange={handleTextInputChange}
@@ -119,6 +120,7 @@ const Form = () => {
           CARD NUMBER
         </label>
         <Input
+          className="border-radius--8 pl--16"
           type={"text"}
           placeholder={"e.g. 1234 5678 9123 0000"}
           onChange={handleNumberInputChange}
@@ -136,8 +138,9 @@ const Form = () => {
             EXP. DATE (MM/YY)
           </label>
           <div className="flex flex--row flex__justify--space-between">
-            <div className="flex flex--column">
+            <div className="flex flex--column mr--8">
               <Input
+                className="border-radius--8 pl--16"
                 type={"number"}
                 placeholder={"MM"}
                 min={1}
@@ -153,6 +156,7 @@ const Form = () => {
 
             <div className="flex flex--column">
               <Input
+                className="border-radius--8 pl--16"
                 type={"number"}
                 placeholder={"YY"}
                 min={0}
@@ -172,7 +176,7 @@ const Form = () => {
             CVC
           </label>
           <Input
-            className=""
+            className="border-radius--8 pl--16"
             type={"number"}
             placeholder={"e.g. 123"}
             min={100}
