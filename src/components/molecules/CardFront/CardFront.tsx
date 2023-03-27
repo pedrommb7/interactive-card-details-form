@@ -1,10 +1,11 @@
-import React from "react";
+import React, { FC } from "react";
 import Svg from "../../atoms/Svg/Svg";
 import CardFrontImg from "../../../assets/images/bg-card-front.png";
+import { CardFrontProps } from "./types";
 import { cardLogo } from "../../../assets/svg";
 import Paragraph from "../../atoms/Paragraph/Paragraph";
 
-const CardFront = () => {
+const CardFront: FC<CardFrontProps> = ({ name, number, expirationDate }) => {
   return (
     <div>
       <img
@@ -43,7 +44,7 @@ const CardFront = () => {
         </div>
       </section>
       <section className="addcard__banner__card__front__namedate flex flex--row flex__align--center mt--16">
-        <Paragraph text={"JANE APPLESEED"} />
+        <Paragraph text={name} />
         <span>0</span>
         <span>0</span>
         <span>/</span>

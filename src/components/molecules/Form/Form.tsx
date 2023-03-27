@@ -34,6 +34,16 @@ const Form = () => {
   const [numberError, setNumberError] = useState("");
   const [dateError, setDateError] = useState("");
   const [cvcError, setCvcError] = useState("");
+  const [formData, setFormData] = useState({
+    cardNumber: "",
+    cardholderName: "",
+    cvc: "",
+  });
+  const [cardData, setCardData] = useState({
+    cardNumber: "",
+    cardholderName: "",
+    cvc: "",
+  });
 
   const handleTextInputChange = (event: {
     target: { value: any; style: { borderColor: string } };
@@ -49,6 +59,8 @@ const Form = () => {
     );
 
     event.target.style.borderColor = borderColor;
+
+    setFormData({ ...formData, cardholderName: value });
   };
 
   const handleNumberInputChange = (event: {
@@ -64,6 +76,8 @@ const Form = () => {
     );
 
     event.target.style.borderColor = borderColor;
+
+    setFormData({ ...formData, cardNumber: value });
   };
 
   const handleDateInputChange = (event: {
@@ -94,10 +108,19 @@ const Form = () => {
     );
 
     event.target.style.borderColor = borderColor;
+
+    setFormData({ ...formData });
+  };
+
+  const handleFormSubmit = (event: { preventDefault: () => void }) => {
+    event.preventDefault();
+
+    const { cardNumber, cardholderName, cvc } = formData;
+    setCardData(formData);
   };
 
   return (
-    <form className="addcard__form px--24">
+    <form className="addcard__form px--24" onSubmit={handleFormSubmit}>
       <div className="flex flex--column mb--20">
         <label htmlFor="name" className="mb--8">
           CARDHOLDER NAME
@@ -195,6 +218,7 @@ const Form = () => {
         text={"Confirm"}
         className="flex flex__justify--center border-radius--8 py--16"
         type="submit"
+        onClick={handleFormSubmit}
       />
     </form>
   );
