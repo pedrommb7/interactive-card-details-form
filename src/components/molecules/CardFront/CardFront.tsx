@@ -5,7 +5,8 @@ import { CardFrontProps } from "./types";
 import { cardLogo } from "../../../assets/svg";
 import Paragraph from "../../atoms/Paragraph/Paragraph";
 
-const CardFront: FC<CardFrontProps> = ({ name, number, expirationDate }) => {
+const CardFront: FC<CardFrontProps> = ({ name, number, month, year }) => {
+  const groupedCardNumber = number.match(/.{1,4}/g)?.join(" ");
   return (
     <div>
       <img
@@ -18,38 +19,13 @@ const CardFront: FC<CardFrontProps> = ({ name, number, expirationDate }) => {
         className="addcard__banner__card__front mt--12 ml--4"
       />
       <section className="addcard__banner__card__front__number flex flex--row">
-        <div className="mr--8">
-          <span>0</span>
-          <span>0</span>
-          <span>0</span>
-          <span>0</span>
-        </div>
-        <div className="mr--8">
-          <span>0</span>
-          <span>0</span>
-          <span>0</span>
-          <span>0</span>
-        </div>
-        <div className="mr--8">
-          <span>0</span>
-          <span>0</span>
-          <span>0</span>
-          <span>0</span>
-        </div>
-        <div className="mr--8">
-          <span>0</span>
-          <span>0</span>
-          <span>0</span>
-          <span>0</span>
-        </div>
+        <span>{groupedCardNumber}</span>
       </section>
       <section className="addcard__banner__card__front__namedate flex flex--row flex__align--center mt--16">
-        <Paragraph text={name} />
-        <span>0</span>
-        <span>0</span>
+        <Paragraph text={name?.toUpperCase()} />
+        <span>{month}</span>
         <span>/</span>
-        <span>0</span>
-        <span>0</span>
+        <span>{year}</span>
       </section>
     </div>
   );

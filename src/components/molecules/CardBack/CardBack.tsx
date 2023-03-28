@@ -1,7 +1,8 @@
-import React from "react";
+import React, { FC } from "react";
 import CardBackImg from "../../../assets/images/bg-card-back.png";
+import { CardBackProps } from "./types";
 
-const CardBack = () => {
+const CardBack: FC<CardBackProps> = ({ cvc }) => {
   return (
     <>
       <img
@@ -10,11 +11,7 @@ const CardBack = () => {
         className="addcard__banner__card__back"
       />
       <section className="addcard__banner__card__back__cvc flex flex--row flex__align--center">
-        <div>
-          <span>0</span>
-          <span>0</span>
-          <span>0</span>
-        </div>
+        <span>{cvc}</span>
       </section>
     </>
   );

@@ -1,9 +1,21 @@
 import React, { useState, FC } from "react";
+import { FormProps } from "./types";
 import Input from "../../atoms/Input/Input";
 import Button from "../../atoms/Button/Button";
 import "../../../assets/styles/settings/_colors.scss";
 
-const Form = () => {
+const Form: FC<FormProps> = ({
+  setName,
+  setNumber,
+  setMonth,
+  setYear,
+  setCvc,
+}) => {
+  const [nameError, setNameError] = useState("");
+  const [numberError, setNumberError] = useState("");
+  const [dateError, setDateError] = useState("");
+  const [cvcError, setCvcError] = useState("");
+
   const validateInput = (
     value: any,
     regex: RegExp,
@@ -30,25 +42,10 @@ const Form = () => {
     }
   };
 
-  const [nameError, setNameError] = useState("");
-  const [numberError, setNumberError] = useState("");
-  const [dateError, setDateError] = useState("");
-  const [cvcError, setCvcError] = useState("");
-  const [formData, setFormData] = useState({
-    cardNumber: "",
-    cardholderName: "",
-    cvc: "",
-  });
-  const [cardData, setCardData] = useState({
-    cardNumber: "",
-    cardholderName: "",
-    cvc: "",
-  });
-
-  const handleTextInputChange = (event: {
+  const handleNameInputChange = (event: {
     target: { value: any; style: { borderColor: string } };
   }) => {
-    const value = event.target.value;
+    let value = event.target.value;
     const regex = /^[a-zA-Z\s]*$/; //only letters and spaces
 
     const borderColor = validateInput(
@@ -59,40 +56,75 @@ const Form = () => {
     );
 
     event.target.style.borderColor = borderColor;
-
-    setFormData({ ...formData, cardholderName: value });
+    setName(value);
   };
 
   const handleNumberInputChange = (event: {
     target: { value: any; style: { borderColor: string } };
   }) => {
     const value = event.target.value;
-    const regex = /^[\d\s]+$/; //only numbers
-    const borderColor = validateInput(
+    const regex = /^[\d\s]{0,19}$/; //only numbers
+    const isValid = validateInput(
       value,
       regex,
       setNumberError,
       "Wrong format, numbers only"
     );
 
-    event.target.style.borderColor = borderColor;
+    event.target.style.borderColor = isValid;
+    setNumber(value.slice(0, 16));
 
-    setFormData({ ...formData, cardNumber: value });
+    if (isValid && value.length === 16) {
+      event.target.style.borderColor = "purple";
+      setNumber(value);
+    } else {
+      event.target.style.borderColor = "red";
+      setNumberError("Must be 16 digits");
+    }
   };
 
-  const handleDateInputChange = (event: {
+  const handleMonthInputChange = (event: {
     target: { value: any; style: { borderColor: string } };
   }) => {
     const value = event.target.value;
     const regex = /^\d{2}$/; // 2-digit number
-    const borderColor = validateInput(
+    const isValid = validateInput(
       value,
       regex,
       setDateError,
       "Wrong format, 2-digit number"
     );
 
-    event.target.style.borderColor = borderColor;
+    setMonth(value);
+    if (isValid && value.length === 2) {
+      event.target.style.borderColor = "purple";
+      setMonth(value);
+    } else {
+      event.target.style.borderColor = "red";
+      setDateError("Must be 2 digits");
+    }
+  };
+
+  const handleYearInputChange = (event: {
+    target: { value: any; style: { borderColor: string } };
+  }) => {
+    const value = event.target.value;
+    const regex = /^\d{2}$/; // 2-digit number
+    const isValid = validateInput(
+      value,
+      regex,
+      setDateError,
+      "Wrong format, 2-digit number"
+    );
+
+    setYear(value);
+    if (isValid && value.length === 2) {
+      event.target.style.borderColor = "purple";
+      setYear(value);
+    } else {
+      event.target.style.borderColor = "red";
+      setDateError("Must be 2 digits");
+    }
   };
 
   const handleCvcInputChange = (event: {
@@ -100,27 +132,26 @@ const Form = () => {
   }) => {
     const value = event.target.value;
     const regex = /^\d{3}$/; // 3-digit number
-    const borderColor = validateInput(
+    const isValid = validateInput(
       value,
       regex,
       setCvcError,
       "Wrong format, 3-digit number"
     );
 
-    event.target.style.borderColor = borderColor;
+    setCvc(value.slice(0, 3));
 
-    setFormData({ ...formData });
-  };
-
-  const handleFormSubmit = (event: { preventDefault: () => void }) => {
-    event.preventDefault();
-
-    const { cardNumber, cardholderName, cvc } = formData;
-    setCardData(formData);
+    if (isValid && value.length === 3) {
+      event.target.style.borderColor = "purple";
+      setCvc(value);
+    } else {
+      event.target.style.borderColor = "red";
+      setCvcError("Must be 3 digits");
+    }
   };
 
   return (
-    <form className="addcard__form px--24" onSubmit={handleFormSubmit}>
+    <form className="addcard__form px--24">
       <div className="flex flex--column mb--20">
         <label htmlFor="name" className="mb--8">
           CARDHOLDER NAME
@@ -129,7 +160,7 @@ const Form = () => {
           className="border-radius--8 pl--16"
           type={"text"}
           placeholder={"e.g. Jane Appleseed"}
-          onChange={handleTextInputChange}
+          onChange={handleNameInputChange}
         />
         {nameError && (
           <span className="addcard__form__hint-text mt--12 mb--4">
@@ -168,7 +199,7 @@ const Form = () => {
                 placeholder={"MM"}
                 min={1}
                 max={12}
-                onChange={handleDateInputChange}
+                onChange={handleMonthInputChange}
               />
               {dateError && (
                 <span className="addcard__form__hint-text mt--12 mb--4">
@@ -184,7 +215,7 @@ const Form = () => {
                 placeholder={"YY"}
                 min={0}
                 max={99}
-                onChange={handleDateInputChange}
+                onChange={handleYearInputChange}
               />
               {dateError && (
                 <span className="addcard__form__hint-text mt--12 mb--4">
@@ -218,7 +249,6 @@ const Form = () => {
         text={"Confirm"}
         className="flex flex__justify--center border-radius--8 py--16"
         type="submit"
-        onClick={handleFormSubmit}
       />
     </form>
   );
