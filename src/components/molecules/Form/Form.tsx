@@ -4,16 +4,11 @@ import Input from "../../atoms/Input/Input";
 import Button from "../../atoms/Button/Button";
 import "../../../assets/styles/settings/_colors.scss";
 
-const Form: FC<FormProps> = ({
-  setName,
-  setNumber,
-  setMonth,
-  setYear,
-  setCvc,
-}) => {
+const Form: FC<FormProps> = ({ name, number, month, year, cvc }) => {
   const [nameError, setNameError] = useState("");
   const [numberError, setNumberError] = useState("");
-  const [dateError, setDateError] = useState("");
+  const [monthError, setMonthError] = useState("");
+  const [yearError, setYearError] = useState("");
   const [cvcError, setCvcError] = useState("");
 
   const validateInput = (
@@ -56,14 +51,14 @@ const Form: FC<FormProps> = ({
     );
 
     event.target.style.borderColor = borderColor;
-    setName(value);
+    name(value);
   };
 
   const handleNumberInputChange = (event: {
     target: { value: any; style: { borderColor: string } };
   }) => {
     const value = event.target.value;
-    const regex = /^[\d\s]{0,19}$/; //only numbers
+    const regex = /^[\d\s]{0,19}$/; //only numbers and 16 digits + 3 spaces
     const isValid = validateInput(
       value,
       regex,
@@ -72,11 +67,11 @@ const Form: FC<FormProps> = ({
     );
 
     event.target.style.borderColor = isValid;
-    setNumber(value.slice(0, 16));
+    number(value.slice(0, 16));
 
     if (isValid && value.length === 16) {
       event.target.style.borderColor = "purple";
-      setNumber(value);
+      number(value);
     } else {
       event.target.style.borderColor = "red";
       setNumberError("Must be 16 digits");
@@ -91,17 +86,17 @@ const Form: FC<FormProps> = ({
     const isValid = validateInput(
       value,
       regex,
-      setDateError,
+      setMonthError,
       "Wrong format, 2-digit number"
     );
 
-    setMonth(value);
+    month(value.slice(0, 2));
     if (isValid && value.length === 2) {
       event.target.style.borderColor = "purple";
-      setMonth(value);
+      month(value);
     } else {
       event.target.style.borderColor = "red";
-      setDateError("Must be 2 digits");
+      setMonthError("Must be 2 digits");
     }
   };
 
@@ -113,17 +108,17 @@ const Form: FC<FormProps> = ({
     const isValid = validateInput(
       value,
       regex,
-      setDateError,
+      setYearError,
       "Wrong format, 2-digit number"
     );
 
-    setYear(value);
+    year(value.slice(0, 2));
     if (isValid && value.length === 2) {
       event.target.style.borderColor = "purple";
-      setYear(value);
+      year(value);
     } else {
       event.target.style.borderColor = "red";
-      setDateError("Must be 2 digits");
+      setYearError("Must be 2 digits");
     }
   };
 
@@ -139,11 +134,11 @@ const Form: FC<FormProps> = ({
       "Wrong format, 3-digit number"
     );
 
-    setCvc(value.slice(0, 3));
+    cvc(value.slice(0, 3));
 
     if (isValid && value.length === 3) {
       event.target.style.borderColor = "purple";
-      setCvc(value);
+      cvc(value);
     } else {
       event.target.style.borderColor = "red";
       setCvcError("Must be 3 digits");
@@ -191,7 +186,7 @@ const Form: FC<FormProps> = ({
           <label htmlFor="expiration date" className="mb--8">
             EXP. DATE (MM/YY)
           </label>
-          <div className="flex flex--row flex__justify--space-between">
+          <div className="flex flex--row">
             <div className="flex flex--column mr--8">
               <Input
                 className="border-radius--8 pl--16"
@@ -201,9 +196,9 @@ const Form: FC<FormProps> = ({
                 max={12}
                 onChange={handleMonthInputChange}
               />
-              {dateError && (
+              {monthError && (
                 <span className="addcard__form__hint-text mt--12 mb--4">
-                  {dateError}
+                  {monthError}
                 </span>
               )}
             </div>
@@ -217,9 +212,9 @@ const Form: FC<FormProps> = ({
                 max={99}
                 onChange={handleYearInputChange}
               />
-              {dateError && (
+              {yearError && (
                 <span className="addcard__form__hint-text mt--12 mb--4">
-                  {dateError}
+                  {yearError}
                 </span>
               )}
             </div>

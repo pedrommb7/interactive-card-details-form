@@ -1,7 +1,7 @@
 export interface FormProps {
-    setName: Dispatch<SetStateAction<string>>;
-    setNumber: Dispatch<SetStateAction<string>>;
-    setMonth: Dispatch<SetStateAction<number>>;
-    setYear: Dispatch<SetStateAction<number>>;
-    setCvc: Dispatch<SetStateAction<number>>;
+    name: Dispatch<SetStateAction<string>>;
+    number: Dispatch<SetStateAction<string>>;
+    month: Dispatch<SetStateAction<number>>;
+    year: Dispatch<SetStateAction<number>>;
+    cvc: Dispatch<SetStateAction<number>>;
 }

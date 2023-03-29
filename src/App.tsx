@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Form from "./components/molecules/Form/Form";
 import CardBack from "./components/molecules/CardBack/CardBack";
 import CardFront from "./components/molecules/CardFront/CardFront";
+import ThankyouCard from "./components/organisms/ThankyouCard/ThankyouCard";
 import "./App.scss";
 
 function App() {
@@ -19,11 +20,11 @@ function App() {
       </section>
 
       <Form
-        setName={setName}
-        setNumber={setNumber}
-        setMonth={setMonth}
-        setYear={setYear}
-        setCvc={setCvc}
+        name={setName}
+        number={setNumber}
+        month={setMonth}
+        year={setYear}
+        cvc={setCvc}
       />
     </div>
   );

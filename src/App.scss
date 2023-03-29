@@ -107,7 +107,24 @@
         letter-spacing: 1px;
         font-size: $font-size-14;
       }
+    }
 
+    &__thankyou {
+      margin-top: 104px;
+
+      h1 {
+        font-weight: $font-weight-medium;
+        letter-spacing: 2px;
+      }
+
+      p {
+        color: $color-neutral-darkgrayishviolet;
+        font-size: $font-size-18;
+      }
+    }
+
+    &__form,
+    &__thankyou {
       button {
         width: 100%;
         background-color: $color-neutral-verydarkviolet;
