@@ -4,4 +4,5 @@ export interface FormProps {
     month: Dispatch<SetStateAction<number>>;
     year: Dispatch<SetStateAction<number>>;
     cvc: Dispatch<SetStateAction<number>>;
+    setButtonConfirmState: Dispatch<SetStateAction<boolean>>;
 }

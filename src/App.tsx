@@ -12,6 +12,8 @@ function App() {
   const [month, setMonth] = useState(Number);
   const [year, setYear] = useState(Number);
 
+  const [buttonConfirmState, setButtonConfirmState] = useState(false);
+
   return (
     <div className="App addcard">
       <section className="addcard__banner">
@@ -19,13 +21,18 @@ function App() {
         <CardFront name={name} number={number} month={month} year={year} />
       </section>
 
-      <Form
-        name={setName}
-        number={setNumber}
-        month={setMonth}
-        year={setYear}
-        cvc={setCvc}
-      />
+      {buttonConfirmState ? (
+        <ThankyouCard />
+      ) : (
+        <Form
+          name={setName}
+          number={setNumber}
+          month={setMonth}
+          year={setYear}
+          cvc={setCvc}
+          setButtonConfirmState={setButtonConfirmState}
+        />
+      )}
     </div>
   );
 }

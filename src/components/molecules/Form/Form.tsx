@@ -4,7 +4,14 @@ import Input from "../../atoms/Input/Input";
 import Button from "../../atoms/Button/Button";
 import "../../../assets/styles/settings/_colors.scss";
 
-const Form: FC<FormProps> = ({ name, number, month, year, cvc }) => {
+const Form: FC<FormProps> = ({
+  name,
+  number,
+  month,
+  year,
+  cvc,
+  setButtonConfirmState,
+}) => {
   const [nameError, setNameError] = useState("");
   const [numberError, setNumberError] = useState("");
   const [monthError, setMonthError] = useState("");
@@ -145,6 +152,12 @@ const Form: FC<FormProps> = ({ name, number, month, year, cvc }) => {
     }
   };
 
+  const handleSubmit = () => {
+    if (name && number && month && year && cvc) {
+      setButtonConfirmState(true);
+    }
+  };
+
   return (
     <form className="addcard__form px--24">
       <div className="flex flex--column mb--20">
@@ -244,6 +257,7 @@ const Form: FC<FormProps> = ({ name, number, month, year, cvc }) => {
         text={"Confirm"}
         className="flex flex__justify--center border-radius--8 py--16"
         type="submit"
+        onClick={handleSubmit}
       />
     </form>
   );
