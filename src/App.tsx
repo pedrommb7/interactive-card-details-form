@@ -14,6 +14,20 @@ function App() {
 
   const [buttonConfirmState, setButtonConfirmState] = useState(false);
 
+  const isFormValid =
+    name &&
+    number.toString().length === 16 &&
+    month.toString().length === 2 &&
+    year.toString().length === 2 &&
+    cvc.toString().length === 3;
+
+  const handleSubmit = (event: { preventDefault: () => void }) => {
+    event.preventDefault();
+    if (isFormValid) {
+      setButtonConfirmState(true);
+    }
+  };
+
   return (
     <div className="App addcard">
       <section className="addcard__banner">
@@ -31,6 +45,7 @@ function App() {
           year={setYear}
           cvc={setCvc}
           setButtonConfirmState={setButtonConfirmState}
+          onSubmit={handleSubmit}
         />
       )}
     </div>

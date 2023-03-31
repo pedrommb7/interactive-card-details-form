@@ -5,4 +5,5 @@ export interface FormProps {
     year: Dispatch<SetStateAction<number>>;
     cvc: Dispatch<SetStateAction<number>>;
     setButtonConfirmState: Dispatch<SetStateAction<boolean>>;
+    onSubmit?: FormEventHandler<HTMLFormElement>;
 }

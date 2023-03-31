@@ -4,14 +4,7 @@ import Input from "../../atoms/Input/Input";
 import Button from "../../atoms/Button/Button";
 import "../../../assets/styles/settings/_colors.scss";
 
-const Form: FC<FormProps> = ({
-  name,
-  number,
-  month,
-  year,
-  cvc,
-  setButtonConfirmState,
-}) => {
+const Form: FC<FormProps> = ({ name, number, month, year, cvc, onSubmit }) => {
   const [nameError, setNameError] = useState("");
   const [numberError, setNumberError] = useState("");
   const [monthError, setMonthError] = useState("");
@@ -97,7 +90,6 @@ const Form: FC<FormProps> = ({
       "Wrong format, 2-digit number"
     );
 
-    month(value.slice(0, 2));
     if (isValid && value.length === 2) {
       event.target.style.borderColor = "purple";
       month(value);
@@ -119,7 +111,6 @@ const Form: FC<FormProps> = ({
       "Wrong format, 2-digit number"
     );
 
-    year(value.slice(0, 2));
     if (isValid && value.length === 2) {
       event.target.style.borderColor = "purple";
       year(value);
@@ -152,14 +143,8 @@ const Form: FC<FormProps> = ({
     }
   };
 
-  const handleSubmit = () => {
-    if (name && number && month && year && cvc) {
-      setButtonConfirmState(true);
-    }
-  };
-
   return (
-    <form className="addcard__form px--24">
+    <form className="addcard__form px--24" onSubmit={onSubmit}>
       <div className="flex flex--column mb--20">
         <label htmlFor="name" className="mb--8">
           CARDHOLDER NAME
@@ -257,7 +242,6 @@ const Form: FC<FormProps> = ({
         text={"Confirm"}
         className="flex flex__justify--center border-radius--8 py--16"
         type="submit"
-        onClick={handleSubmit}
       />
     </form>
   );
