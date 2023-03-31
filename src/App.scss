@@ -3,7 +3,10 @@
 
 .App {
   height: 100vh;
-
+  @include isMediaTabletLandscape() {
+    display: flex;
+    flex-direction: row;
+  }
   .addcard {
     &__banner {
       position: relative;
@@ -12,13 +15,30 @@
       background-size: cover;
       height: 28%;
 
+      @include isMediaTabletLandscape() {
+        display: flex;
+        flex-direction: column-reverse;
+        height: 100%;
+      }
+
       img {
         height: 70%;
         width: 74%;
+
+        @include isMediaTabletLandscape() {
+          height: 33%;
+          width: 100%;
+        }
       }
 
       svg {
         transform: scale(0.7);
+
+        @include isMediaTabletLandscape() {
+          transform: scale(0.8);
+          margin-left: 1.25rem !important;
+          margin-top: 1.25rem !important;
+        }
       }
 
       &__card {
@@ -27,6 +47,12 @@
           top: 15%;
           left: 21%;
 
+          @include isMediaTabletLandscape() {
+            top: -15%;
+            bottom: 10%;
+            left: 45%;
+          }
+
           &__cvc {
             position: absolute;
             bottom: 48%;
@@ -34,6 +60,11 @@
             color: $color-neutral-white;
             font-size: $font-size-11;
             letter-spacing: 1px;
+
+            @include isMediaTabletLandscape() {
+              bottom: 31%;
+              left: 125%;
+            }
           }
         }
 
@@ -42,10 +73,20 @@
           top: 54%;
           left: 5%;
 
+          @include isMediaTabletLandscape() {
+            top: 15%;
+            left: 24%;
+          }
+
           &__number {
             position: absolute;
             top: 87%;
             left: 9%;
+
+            @include isMediaTabletLandscape() {
+              top: 36%;
+              left: 31%;
+            }
 
             span {
               letter-spacing: 2px;
@@ -56,8 +97,13 @@
 
           &__namedate {
             position: absolute;
-            top: 95%;
-            left: 9%;
+            top: 70%;
+            left: 103%;
+
+            @include isMediaTabletLandscape() {
+              top: 39%;
+              left: 31%;
+            }
 
             p,
             span {
@@ -76,6 +122,14 @@
 
     &__form {
       margin-top: 104px;
+
+      @include isMediaTabletLandscape() {
+        margin: 0;
+        left: 66%;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
 
       input {
         height: 45px;
