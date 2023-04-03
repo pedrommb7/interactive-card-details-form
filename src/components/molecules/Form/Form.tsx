@@ -11,6 +11,8 @@ const Form: FC<FormProps> = ({ name, number, month, year, cvc, onSubmit }) => {
   const [yearError, setYearError] = useState("");
   const [cvcError, setCvcError] = useState("");
 
+  const [isFormValid, setIsFormValid] = useState(false);
+
   const validateInput = (
     value: any,
     regex: RegExp,
@@ -27,12 +29,15 @@ const Form: FC<FormProps> = ({ name, number, month, year, cvc, onSubmit }) => {
 
     if (!value) {
       setError("Can't be blank");
+      setIsFormValid(false);
       return "red";
     } else if (!isValid) {
       setError(errorMessage);
+      setIsFormValid(false);
       return "red";
     } else {
       setError("");
+      setIsFormValid(true);
       return "purple";
     }
   };
@@ -242,6 +247,7 @@ const Form: FC<FormProps> = ({ name, number, month, year, cvc, onSubmit }) => {
         text={"Confirm"}
         className="flex flex__justify--center border-radius--8 py--16"
         type="submit"
+        disabled={!isFormValid}
       />
     </form>
   );

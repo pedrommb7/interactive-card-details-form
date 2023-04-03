@@ -3,4 +3,5 @@ export interface ButtonProps {
     text: string | number;
     onClick?: MouseEventHandler<HTMLButtonElement>;
     type?: 'submit' | 'reset' | 'button';
+    disabled?: boolean;
 }
