@@ -10,7 +10,7 @@ const CardBack: FC<CardBackProps> = ({ cvc }) => {
         alt="card back"
         className="addcard__banner__card__back"
       />
-      <section className="addcard__banner__card__back__cvc flex flex--row flex__align--center">
+      <section className="addcard__banner__card__back__cvc flex flex--row flex__align--center flex__justify--center">
         <span>{cvc}</span>
       </section>
     </>

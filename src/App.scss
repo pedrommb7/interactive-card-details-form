@@ -2,7 +2,7 @@
 @use "assets/styles/main.scss" as *;
 
 .App {
-  height: 100vh;
+  height: 100vh !important;
   @include isMediaTabletLandscape() {
     display: flex;
     flex-direction: row;
