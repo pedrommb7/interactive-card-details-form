@@ -14,6 +14,7 @@ const ThankyouCard = () => {
       <Button
         text={"Continue"}
         className="flex flex__justify--center border-radius--8 py--16"
+        onClick={() => window.location.reload()}
       />
     </section>
   );

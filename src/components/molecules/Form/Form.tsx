@@ -1,8 +1,7 @@
-import React, { useState, FC } from "react";
+import React, { useState, useEffect, FC } from "react";
 import { FormProps } from "./types";
 import Input from "../../atoms/Input/Input";
 import Button from "../../atoms/Button/Button";
-import "../../../assets/styles/settings/_colors.scss";
 
 const Form: FC<FormProps> = ({ name, number, month, year, cvc, onSubmit }) => {
   const [nameError, setNameError] = useState("");
@@ -12,6 +11,12 @@ const Form: FC<FormProps> = ({ name, number, month, year, cvc, onSubmit }) => {
   const [cvcError, setCvcError] = useState("");
 
   const [isFormValid, setIsFormValid] = useState(false);
+
+  useEffect(() => {
+    setIsFormValid(
+      !nameError && !numberError && !monthError && !yearError && !cvcError
+    );
+  }, [nameError, numberError, monthError, yearError, cvcError]);
 
   const validateInput = (
     value: any,
@@ -29,15 +34,12 @@ const Form: FC<FormProps> = ({ name, number, month, year, cvc, onSubmit }) => {
 
     if (!value) {
       setError("Can't be blank");
-      setIsFormValid(false);
       return "red";
     } else if (!isValid) {
       setError(errorMessage);
-      setIsFormValid(false);
       return "red";
     } else {
       setError("");
-      setIsFormValid(true);
       return "purple";
     }
   };
