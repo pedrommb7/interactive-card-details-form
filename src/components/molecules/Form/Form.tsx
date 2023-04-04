@@ -160,6 +160,7 @@ const Form: FC<FormProps> = ({ name, number, month, year, cvc, onSubmit }) => {
           className="border-radius--8 pl--16"
           type={"text"}
           placeholder={"e.g. Jane Appleseed"}
+          maxLength={15}
           onChange={handleNameInputChange}
         />
         {nameError && (

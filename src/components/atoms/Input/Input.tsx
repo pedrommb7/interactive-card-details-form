@@ -7,6 +7,7 @@ const Input: FC<InputProps> = ({
   className,
   min,
   max,
+  maxLength,
   onChange,
 }) => {
   return (
@@ -15,6 +16,7 @@ const Input: FC<InputProps> = ({
       placeholder={placeholder}
       min={min}
       max={max}
+      maxLength={maxLength}
       onChange={onChange}
       className={`${className}`}
     />
