@@ -34,13 +34,13 @@ const Form: FC<FormProps> = ({ name, number, month, year, cvc, onSubmit }) => {
 
     if (!value) {
       setError("Can't be blank");
-      return "red";
+      return "var(--color-primary-red)";
     } else if (!isValid) {
       setError(errorMessage);
-      return "red";
+      return "var(--color-primary-red)";
     } else {
       setError("");
-      return "purple";
+      return "var(--color-neutral-verydarkviolet)";
     }
   };
 
@@ -77,10 +77,10 @@ const Form: FC<FormProps> = ({ name, number, month, year, cvc, onSubmit }) => {
     number(value.slice(0, 16));
 
     if (isValid && value.length === 16) {
-      event.target.style.borderColor = "purple";
+      event.target.style.borderColor = "var(--color-neutral-verydarkviolet)";
       number(value);
     } else {
-      event.target.style.borderColor = "red";
+      event.target.style.borderColor = "var(--color-primary-red)";
       setNumberError("Must be 16 digits");
     }
   };
@@ -98,10 +98,10 @@ const Form: FC<FormProps> = ({ name, number, month, year, cvc, onSubmit }) => {
     );
 
     if (isValid && value.length === 2) {
-      event.target.style.borderColor = "purple";
+      event.target.style.borderColor = "var(--color-neutral-verydarkviolet)";
       month(value);
     } else {
-      event.target.style.borderColor = "red";
+      event.target.style.borderColor = "var(--color-primary-red)";
       setMonthError("Must be 2 digits");
     }
   };
@@ -119,10 +119,10 @@ const Form: FC<FormProps> = ({ name, number, month, year, cvc, onSubmit }) => {
     );
 
     if (isValid && value.length === 2) {
-      event.target.style.borderColor = "purple";
+      event.target.style.borderColor = "var(--color-neutral-verydarkviolet)";
       year(value);
     } else {
-      event.target.style.borderColor = "red";
+      event.target.style.borderColor = "var(--color-primary-red)";
       setYearError("Must be 2 digits");
     }
   };
@@ -142,10 +142,10 @@ const Form: FC<FormProps> = ({ name, number, month, year, cvc, onSubmit }) => {
     cvc(value.slice(0, 3));
 
     if (isValid && value.length === 3) {
-      event.target.style.borderColor = "purple";
+      event.target.style.borderColor = "var(--color-neutral-verydarkviolet)";
       cvc(value);
     } else {
-      event.target.style.borderColor = "red";
+      event.target.style.borderColor = "var(--color-primary-red)";
       setCvcError("Must be 3 digits");
     }
   };
